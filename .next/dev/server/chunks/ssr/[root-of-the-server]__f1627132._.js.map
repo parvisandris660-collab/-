@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 14, "column": 0}, "map": {"version":3,"sources":["file:///D:/cursor%E4%BB%A3%E7%A0%81/%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99/app/page.tsx"],"sourcesContent":["import { redirect } from 'next/navigation';\n\n// 根路径重定向到 /public 下的静态主页\nexport default function Home() {\n  redirect('/index.html');\n}\n"],"names":[],"mappings":";;;;AAAA;AAAA;;AAGe,SAAS;IACtB,IAAA,iMAAQ,EAAC;AACX"}}]
+}

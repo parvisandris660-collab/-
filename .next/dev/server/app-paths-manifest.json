@@ -1,0 +1,6 @@
+{
+  "/ai-news/page": "app/ai-news/page.js",
+  "/api/ai-brief/route": "app/api/ai-brief/route.js",
+  "/api/fetch-ai-news/route": "app/api/fetch-ai-news/route.js",
+  "/page": "app/page.js"
+}

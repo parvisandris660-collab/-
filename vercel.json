@@ -1,0 +1,9 @@
+{
+  "crons": [
+    {
+      "path": "/api/fetch-ai-news",
+      "schedule": "0 1 * * *"
+    }
+  ]
+}
+

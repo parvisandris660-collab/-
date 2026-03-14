@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="周林的 AI 日报 · 每日精选 AI 圈最值得关注的动态" />
+  <meta name="keywords" content="AI日报,AI动态,人工智能,大模型,周林" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:site_name" content="周林 · AI 日报" />
+  <meta property="og:title" content="AI 日报 · 周林" />
+  <meta property="og:description" content="每日精选 AI 圈最值得关注的动态" />
+  <meta property="og:image" content="assets/og-cover.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <title>AI 日报 · 周林</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ai-news.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER / NAV（与主页保持一致）
+  ============================================================ -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav-logo" aria-label="返回主页">
+        <span class="nav-logo-dot"></span>
+        <span>周林</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks" aria-label="主导航">
+        <li><a href="index.html#about"      class="nav-link">关于</a></li>
+        <li><a href="index.html#experience" class="nav-link">经历</a></li>
+        <li><a href="index.html#skills"     class="nav-link">技能</a></li>
+        <li><a href="index.html#portfolio"  class="nav-link">作品</a></li>
+        <li><a href="index.html#contact"    class="nav-link">联系</a></li>
+        <li><a href="ai-news.html"          class="nav-link nav-link--active">AI 日报</a></li>
+      </ul>
+
+      <button class="nav-burger" id="navBurger" aria-label="展开菜单" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         PAGE HEADER - 页面标题区
+    ============================================================ -->
+    <section class="news-hero section">
+      <div class="container">
+        <div class="news-hero-inner reveal">
+          <div class="news-hero-meta">
+            <span class="section-tag">AI NEWS</span>
+            <span class="news-date" id="newsDate">加载中…</span>
+          </div>
+          <h1 class="news-hero-title">AI 日报</h1>
+          <p class="news-hero-subtitle">精选今日 AI 圈最值得关注的动态，按重要程度分级呈现</p>
+
+          <!-- 等级说明 -->
+          <div class="news-legend reveal reveal--delay-1">
+            <span class="news-badge news-badge--must">必读</span>
+            <span class="news-legend-sep">行业重大突破或直接影响从业者的消息</span>
+            <span class="news-badge news-badge--rec">推荐</span>
+            <span class="news-legend-sep">值得了解的进展与工具更新</span>
+            <span class="news-badge news-badge--info">了解</span>
+            <span class="news-legend-sep">背景信息与行业动向参考</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         FILTER BAR - 筛选栏
+    ============================================================ -->
+    <div class="news-filter-bar" id="filterBar" role="tablist" aria-label="按等级筛选">
+      <div class="container">
+        <div class="news-filter-inner">
+          <button class="news-filter-btn news-filter-btn--active" role="tab" aria-selected="true"  data-filter="all"  aria-controls="newsFeed">全部</button>
+          <button class="news-filter-btn" role="tab" aria-selected="false" data-filter="must" aria-controls="newsFeed">必读</button>
+          <button class="news-filter-btn" role="tab" aria-selected="false" data-filter="rec"  aria-controls="newsFeed">推荐</button>
+          <button class="news-filter-btn" role="tab" aria-selected="false" data-filter="info" aria-controls="newsFeed">了解</button>
+          <span class="news-filter-count" id="filterCount"></span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ============================================================
+         NEWS FEED - 新闻卡片流
+    ============================================================ -->
+    <section class="news-feed section" id="newsFeed" aria-label="新闻列表">
+      <div class="container">
+        <div class="news-grid" id="newsGrid" aria-live="polite"></div>
+
+        <!-- 空态 -->
+        <div class="news-empty" id="newsEmpty" hidden>
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <circle cx="24" cy="24" r="22" stroke="var(--color-border-strong)" stroke-width="2"/>
+            <path d="M16 24h16M24 16v16" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <p>该分类暂无内容</p>
+        </div>
+
+        <!-- 加载态 -->
+        <div class="news-loading" id="newsLoading" aria-label="加载中">
+          <div class="news-skeleton"></div>
+          <div class="news-skeleton"></div>
+          <div class="news-skeleton"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         HOW-TO SECTION - 接入说明（给自己看的）
+    ============================================================ -->
+    <section class="howto section" id="howto">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">HOW IT WORKS</span>
+          <h2 class="section-title">如何接入真实数据</h2>
+          <p class="section-subtitle">目前使用本地 mock 数据，以下是接入真实 AI 抓取的步骤</p>
+        </div>
+
+        <div class="howto-steps">
+          <article class="howto-card reveal">
+            <div class="howto-num">01</div>
+            <h3 class="howto-title">替换数据源</h3>
+            <p class="howto-desc">
+              将 <code>ai-news.js</code> 里的 <code>MOCK_NEWS</code> 替换成真实 API 调用。
+              推荐使用 <strong>Tavily Search API</strong>（专为 AI agent 设计，支持按关键词抓取最新结果）
+              或 <strong>Gemini Grounding API</strong>（直接从搜索结果中提炼摘要）。
+            </p>
+            <pre class="howto-code"><code>// 示例：调用 Tavily
+const res = await fetch('https://api.tavily.com/search', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    api_key: 'YOUR_TAVILY_KEY',
+    query: 'AI news today',
+    search_depth: 'advanced',
+    max_results: 10
+  })
+});
+const data = await res.json();
+// data.results → 解析成 NewsItem[]</code></pre>
+          </article>
+
+          <article class="howto-card reveal reveal--delay-1">
+            <div class="howto-num">02</div>
+            <h3 class="howto-title">用 AI 生成摘要与分级</h3>
+            <p class="howto-desc">
+              把抓取的原始文章标题 + 摘要丢给大模型，让它按"必读/推荐/了解"打分并输出 3 句中文摘要。
+            </p>
+            <pre class="howto-code"><code>// 示例 Prompt（可接入 Gemini / OpenAI）
+const prompt = `
+你是一名 AI 行业分析师。
+对以下新闻按重要程度分级（must/rec/info）并
+用 3 句中文写出核心摘要，返回 JSON。
+
+新闻：${article.title}
+内容：${article.content}
+`;
+// 解析 JSON → 填入卡片数据</code></pre>
+          </article>
+
+          <article class="howto-card reveal reveal--delay-2">
+            <div class="howto-num">03</div>
+            <h3 class="howto-title">定时自动更新（Vercel Cron）</h3>
+            <p class="howto-desc">
+              如果未来迁移到 Next.js / 部署到 Vercel，可在 <code>vercel.json</code> 里配置 Cron Job，
+              每天早 8 点自动抓取并写入 KV 存储或静态 JSON 文件。
+            </p>
+            <pre class="howto-code"><code>// vercel.json（迁移到 Next.js 后使用）
+{
+  "crons": [{
+    "path": "/api/fetch-ai-news",
+    "schedule": "0 0 * * *"  // UTC 0点 = 北京时间 8点
+  }]
+}
+
+// /api/fetch-ai-news.js
+export async function GET(request) {
+  // 1. 调用 Tavily 抓取
+  // 2. 调用 Gemini 分级+摘要
+  // 3. 写入 Vercel KV / 静态 JSON
+  return Response.json({ ok: true });
+}</code></pre>
+          </article>
+
+          <article class="howto-card reveal reveal--delay-3">
+            <div class="howto-num">04</div>
+            <h3 class="howto-title">现在怎么手动更新</h3>
+            <p class="howto-desc">
+              在 <code>ai-news.js</code> 顶部的 <code>MOCK_NEWS</code> 数组里增减条目，
+              每条对象的字段：<code>level</code>（must/rec/info）、<code>title</code>、
+              <code>source</code>、<code>points</code>（摘要数组，3条）、<code>url</code>。
+            </p>
+            <pre class="howto-code"><code>{
+  level: 'must',               // must | rec | info
+  title: '文章标题',
+  source: '来源名称',
+  sourceUrl: 'https://...',    // 可选：来源主页
+  points: [
+    '第一条摘要',
+    '第二条摘要',
+    '第三条摘要',
+  ],
+  url: 'https://原文链接',
+  date: '2026-03-10',          // 可选：发布日期
+}</code></pre>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-left">
+        © 2026 周林 · AI 日报
+      </span>
+      <span class="footer-right">
+        <a href="index.html" class="footer-home-link">← 返回主页</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script src="ai-news.js"></script>
+</body>
+</html>
